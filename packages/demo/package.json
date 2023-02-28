@@ -1,5 +1,5 @@
 {
-  "name": "@easy-vscode/demo",
+  "name": "@easy_vscode/demo",
   "publisher": "vscode-infra",
   "displayName": "Image Viewer",
   "description": "View all images of the current project",
@@ -158,9 +158,9 @@
   },
   "dependencies": {
     "@ant-design/icons": "^4.7.13",
-    "@easy-vscode/core": "^1.5.3",
-    "@easy-vscode/i18n": "^1.2.3",
-    "@easy-vscode/webview": "^1.6.3",
+    "@easy_vscode/core": "^1.5.3",
+    "@easy_vscode/i18n": "^1.2.3",
+    "@easy_vscode/webview": "^1.6.3",
     "ahooks": "^3.5.2",
     "antd": "^4.16.8",
     "axios": "^0.24.0",
@@ -176,5 +176,5 @@
   "resolutions": {
     "webpack": "5.73.0"
   },
-  "gitHead": "c204d9cd6d33337476284a20a4187f8a5f1c2d15"
+  "gitHead": "c08747a2efed55a96c077492f9987e697f3eb415"
 }

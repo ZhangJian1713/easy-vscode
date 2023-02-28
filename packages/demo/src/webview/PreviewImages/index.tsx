@@ -15,7 +15,7 @@ import {
 } from 'antd'
 import { FolderOpenTwoTone, InfoCircleOutlined } from '@ant-design/icons'
 import { MESSAGE_CMD } from '../../constants'
-import { callVscode } from '@easy-vscode/webview'
+import { callVscode } from '@easy_vscode/webview'
 import mockData from './data'
 import ImageLazyLoad from './ImageLazyLoad'
 import {
@@ -31,7 +31,7 @@ import {
   StyleTopRows
 } from './style'
 import ImageInfo from './ImageInfo'
-import i18n, { useTranslationValues } from '@easy-vscode/i18n'
+import i18n, { useTranslationValues } from '@easy_vscode/i18n'
 import { K } from '../../i18n'
 
 const { Search } = Input

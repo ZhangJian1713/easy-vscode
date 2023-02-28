@@ -1,7 +1,7 @@
 import { ViewColumn } from 'vscode'
 import { DIST_WEBVIEW_INDEX_HTML, EXTENSION_COMMANDS, MESSAGE_CMD, WEBVIEW_NAMES } from '../../constants'
-import { IWebview, IWebviewProps, IMessage } from '@easy-vscode/core/lib/types'
-import { webviewUtils } from '@easy-vscode/core'
+import { IWebview, IWebviewProps, IMessage } from '@easy_vscode/core/lib/types'
+import { webviewUtils } from '@easy_vscode/core'
 import { exec } from 'child_process'
 
 const { invokeCallback } = webviewUtils

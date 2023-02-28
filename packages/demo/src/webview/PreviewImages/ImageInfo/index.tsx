@@ -1,5 +1,5 @@
 import { Dropdown, Menu, message } from 'antd'
-import { callVscode } from '@easy-vscode/webview'
+import { callVscode } from '@easy_vscode/webview'
 import React from 'react'
 import { MESSAGE_CMD } from '../../../constants'
 import { StyleImageInfo, StyleImageName } from './style'

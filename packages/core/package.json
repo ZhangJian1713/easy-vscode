@@ -1,5 +1,5 @@
 {
-  "name": "@easy-vscode/core",
+  "name": "@easy_vscode/core",
   "version": "1.5.3",
   "description": "core of Easy Vscode",
   "main": "lib/index.js",
@@ -22,5 +22,5 @@
     "prebuild": "yarn clean",
     "build": "tsc --build tsconfig.json"
   },
-  "gitHead": "c204d9cd6d33337476284a20a4187f8a5f1c2d15"
+  "gitHead": "c08747a2efed55a96c077492f9987e697f3eb415"
 }

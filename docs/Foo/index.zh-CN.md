@@ -12,7 +12,7 @@ Foo 是 easy-vscode（仅供示例） 组件库的一个组件，通过 Foo 的�
 ## 安装
 
 ```bash
-  yarn add easy-vscode
+  yarn add easy_vscode
 ```
 
 ## 使用

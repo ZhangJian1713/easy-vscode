@@ -1,7 +1,7 @@
 import * as fs from 'fs'
 import * as path from 'path'
 import { Webview, Uri } from 'vscode'
-import { utils } from '@easy-vscode/core'
+import { utils } from '@easy_vscode/core'
 
 export const SUPPORT_IMG_TYPES = ['.svg', '.png', '.jpeg', '.jpg', '.ico', '.gif', '.webp', '.bmp', '.tif', '.apng']
 const { getProjectPath } = utils

@@ -1,4 +1,4 @@
-# `@easy-vscode/i18n`
+# `@easy_vscode/i18n`
 
 > I18n for easy-vscode
 
@@ -7,7 +7,7 @@
 Add languages resource:
 
 ```ts
-import { addResources } from '@easy-vscode/i18n'
+import { addResources } from '@easy_vscode/i18n'
 import en from './locales/en'
 import zh from './locales/zh'
 
@@ -26,7 +26,7 @@ export * from './constants'
 Translate:
 
 ```tsx
-import i18n, { useTranslationValues } from '@easy-vscode/i18n'
+import i18n, { useTranslationValues } from '@easy_vscode/i18n'
 import { K } from '../../i18n'
 
 // Batch translate values

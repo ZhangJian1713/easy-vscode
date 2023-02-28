@@ -12,14 +12,14 @@ This is a demo for Foo component to show how to use monorepo template.
 ## Installation
 
 ```bash
-  yarn add easy-vscode
+  yarn add easy_vscode
 ```
 
 ## Usage
 
 ```tsx | pure
 import React from 'react';
-import Foo from 'easy-vscode';
+import Foo from 'easy_vscode';
 
 export default () => <Foo title="First Demo" />;
 ```

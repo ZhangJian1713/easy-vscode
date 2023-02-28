@@ -1,4 +1,4 @@
-import { registerWebview } from '@easy-vscode/webview'
+import { registerWebview } from '@easy_vscode/webview'
 import HelloWorld from './HelloWorld'
 import PreviewImages from './PreviewImages'
 import '../i18n'

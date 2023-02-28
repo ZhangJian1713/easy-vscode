@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { render } from 'react-dom'
 import App from './src/App'
-import i18n, { i18next } from '@easy-vscode/i18n'
+import i18n, { i18next } from '@easy_vscode/i18n'
 
 export * from './src/helpers/callVscode'
 

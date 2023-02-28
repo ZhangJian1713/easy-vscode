@@ -1,5 +1,5 @@
 import * as vscode from 'vscode'
-import { utils, init, workspaceStorage, globalStorage } from '@easy-vscode/core'
+import { utils, init, workspaceStorage, globalStorage } from '@easy_vscode/core'
 import { registryAllWebviews } from './webviewController'
 import * as path from 'path'
 

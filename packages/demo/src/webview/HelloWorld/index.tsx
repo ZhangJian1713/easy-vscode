@@ -1,4 +1,4 @@
-import { callVscode } from '@easy-vscode/webview'
+import { callVscode } from '@easy_vscode/webview'
 import { MESSAGE_CMD } from '../../constants'
 import React, { useEffect, useState } from 'react'
 import { Space, Tag } from 'antd'

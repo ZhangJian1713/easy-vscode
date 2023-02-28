@@ -1,7 +1,7 @@
 import { exec } from 'child_process'
 import { ViewColumn, Webview } from 'vscode'
-import { utils, webviewUtils  } from '@easy-vscode/core'
-import { IWebview, IWebviewProps, IMessage } from '@easy-vscode/core/lib/types'
+import { utils, webviewUtils  } from '@easy_vscode/core'
+import { IWebview, IWebviewProps, IMessage } from '@easy_vscode/core/lib/types'
 import { DIST_WEBVIEW_INDEX_HTML, EXTENSION_COMMANDS, MESSAGE_CMD, WEBVIEW_NAMES } from '../../constants'
 import { getAllImgs, getImageBase64 } from './utils'
 

@@ -1,7 +1,7 @@
 import { ExtensionContext } from 'vscode'
 import imagesViewer from './imagesViewer'
 import helloWorld from './helloWorld'
-import { webviewUtils } from '@easy-vscode/core'
+import { webviewUtils } from '@easy_vscode/core'
 
 const { registryWebview } = webviewUtils
 
