@@ -5,13 +5,9 @@
   "keywords": [
     "i18n"
   ],
-  "homepage": "",
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:ZhangJian1713/easy-vscode.git"
-  },
-  "license": "MIT",
   "author": "",
+  "homepage": "",
+  "license": "MIT",
   "main": "lib/index.js",
   "directories": {
     "lib": "lib"
@@ -19,18 +15,23 @@
   "files": [
     "lib"
   ],
+  "publishConfig": {
+    "registry": "https://registry.npmmirror.com/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:ZhangJian1713/easy-vscode.git"
+  },
   "scripts": {
-    "prebuild": "yarn clean",
-    "build": "tsc --build",
     "clean": "rimraf lib",
     "prestart": "yarn clean",
-    "start": "tsc --watch"
+    "start": "tsc --watch",
+    "prebuild": "yarn clean",
+    "build": "tsc --build"
   },
   "dependencies": {
     "i18next": "^21.9.2",
     "react-i18next": "^11.18.6"
   },
-  "publishConfig": {
-    "registry": "https://registry.npmmirror.com/"
-  }
+  "gitHead": "8ebe500afb0952163b84c166a57394c1f153879f"
 }
