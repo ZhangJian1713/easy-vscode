@@ -1,4 +1,5 @@
 {
+  "private": true,
   "name": "easy-vscode",
   "version": "0.1.0",
   "workspaces": [
