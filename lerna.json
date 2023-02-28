@@ -1,0 +1,19 @@
+{
+  "packages": [
+    "packages/*"
+  ],
+  "version": "independent",
+  "npmClient": "yarn",
+  "useWorkspaces": true,
+  "stream": true,
+  "command": {
+    "version": {
+      "allowBranch": ["master", "feature-*"],
+      "includeMergedTags": true
+    },
+    "publish": {
+      "message": "chore(release): publish",
+      "registry": "https://registry.npmmirror.com"
+    }
+  }
+}
