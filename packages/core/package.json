@@ -1,26 +1,26 @@
 {
   "name": "@easy-vscode/core",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "description": "core of Easy Vscode",
-  "main": "lib/index.js",
-  "files": [
-    "lib/**/*"
-  ],
-  "author": "zhangjian",
-  "license": "MIT",
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
   "repository": {
     "type": "git",
     "url": "git@github.com:ZhangJian1713/easy-vscode.git"
   },
+  "license": "MIT",
+  "author": "zhangjian",
+  "main": "lib/index.js",
+  "files": [
+    "lib/**/*"
+  ],
   "scripts": {
+    "prebuild": "yarn clean",
+    "build": "tsc --build tsconfig.json",
     "clean": "rimraf lib",
     "prestart": "yarn clean",
-    "start": "tsc --watch",
-    "prebuild": "yarn clean",
-    "build": "tsc --build tsconfig.json"
+    "start": "tsc --watch"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
   },
   "gitHead": "8ebe500afb0952163b84c166a57394c1f153879f"
 }
