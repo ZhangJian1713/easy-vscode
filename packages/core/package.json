@@ -1,6 +1,6 @@
 {
   "name": "@easy-vscode/core",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "description": "core of Easy Vscode",
   "main": "lib/index.js",
   "files": [

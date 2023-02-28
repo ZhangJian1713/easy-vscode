@@ -4,7 +4,7 @@
   "displayName": "Image Viewer",
   "description": "View all images of the current project",
   "icon": "assets/logo.png",
-  "version": "1.9.0",
+  "version": "1.9.1",
   "engines": {
     "vscode": "^1.60.0"
   },
@@ -158,9 +158,9 @@
   },
   "dependencies": {
     "@ant-design/icons": "^4.7.13",
-    "@easy-vscode/core": "^1.5.0",
-    "@easy-vscode/i18n": "^1.2.0",
-    "@easy-vscode/webview": "^1.6.0",
+    "@easy-vscode/core": "^1.5.1",
+    "@easy-vscode/i18n": "^1.2.1",
+    "@easy-vscode/webview": "^1.6.1",
     "ahooks": "^3.5.2",
     "antd": "^4.16.8",
     "axios": "^0.24.0",
