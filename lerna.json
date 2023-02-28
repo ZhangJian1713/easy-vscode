@@ -8,7 +8,7 @@
   "stream": true,
   "command": {
     "version": {
-      "allowBranch": ["master", "feature-*"],
+      "allowBranch": ["main", "feature-*"],
       "includeMergedTags": true
     },
     "publish": {
