@@ -1,26 +1,25 @@
 {
   "name": "@easy-vscode/core",
-  "version": "1.3.2",
+  "version": "1.4.0",
   "description": "core of Easy Vscode",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:ZhangJian1713/easy-vscode.git"
+  },
+  "license": "MIT",
+  "author": "zhangjian",
   "main": "lib/index.js",
   "files": [
     "lib/**/*"
   ],
-  "author": "zhangjian",
-  "license": "MIT",
-  "publishConfig": {
-    "registry": "https://registry.npmmirror.com/"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:ZhangJian1713/easy-vscode.git"
-    
-  },
   "scripts": {
+    "prebuild": "yarn clean",
+    "build": "tsc --build tsconfig.json",
     "clean": "rimraf lib",
     "prestart": "yarn clean",
-    "start": "tsc --watch",
-    "prebuild": "yarn clean",
-    "build": "tsc --build tsconfig.json"
+    "start": "tsc --watch"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmmirror.com/"
   }
 }
