@@ -2,15 +2,15 @@
   "name": "@easy-vscode/webview",
   "version": "1.6.0",
   "description": "webview of Easy Vscode",
-  "license": "MIT",
-  "author": "zhangjian",
   "main": "index.tsx",
+  "author": "zhangjian",
+  "license": "MIT",
   "scripts": {
-    "check-type": "tsc --noEmit",
-    "lint-staged": "lint-staged",
-    "ui-build": "webpack --config webpack.webview.js --color --mode production",
     "ui-dev": "webpack serve --config webpack.webview.js --color --progress --mode development",
-    "ui-watch": "webpack --config webpack.webview.js --watch --mode development"
+    "ui-watch": "webpack --config webpack.webview.js --watch --mode development",
+    "ui-build": "webpack --config webpack.webview.js --color --mode production",
+    "lint-staged": "lint-staged",
+    "check-type": "tsc --noEmit"
   },
   "dependencies": {
     "@ant-design/icons": "^4.7.16",
@@ -45,5 +45,5 @@
     "react": ">=16.6.0",
     "react-dom": ">=16.6.0"
   },
-  "gitHead": "8ebe500afb0952163b84c166a57394c1f153879f"
+  "gitHead": "0f86adf93f55b2ffdc8bef3a48d14196ca4b1f7b"
 }
