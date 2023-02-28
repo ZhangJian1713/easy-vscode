@@ -1,12 +1,12 @@
 {
   "name": "@easy-vscode/core",
-  "version": "1.5.2",
+  "version": "1.5.3",
   "description": "core of Easy Vscode",
   "main": "lib/index.js",
   "files": [
     "lib/**/*"
   ],
-  "author": "zhangjian",
+  "author": "zhangjian1713",
   "license": "MIT",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -22,5 +22,5 @@
     "prebuild": "yarn clean",
     "build": "tsc --build tsconfig.json"
   },
-  "gitHead": "c7176970fc506150c5c924f266db0b8dcfbddc02"
+  "gitHead": "c204d9cd6d33337476284a20a4187f8a5f1c2d15"
 }

@@ -1,6 +1,6 @@
 {
   "name": "@easy-vscode/webview",
-  "version": "1.6.2",
+  "version": "1.6.3",
   "description": "webview of Easy Vscode",
   "main": "index.tsx",
   "author": "zhangjian",
@@ -16,7 +16,7 @@
     "@ant-design/icons": "^4.7.16",
     "@babel/plugin-syntax-dynamic-import": "^7.8.3",
     "@babel/plugin-transform-runtime": "^7.18.10",
-    "@easy-vscode/i18n": "^1.2.2",
+    "@easy-vscode/i18n": "^1.2.3",
     "antd": "^4.22.5",
     "babel-loader": "^8.2.5",
     "babel-plugin-import": "^1.13.5",
@@ -45,5 +45,5 @@
     "react": ">=16.6.0",
     "react-dom": ">=16.6.0"
   },
-  "gitHead": "c7176970fc506150c5c924f266db0b8dcfbddc02"
+  "gitHead": "c204d9cd6d33337476284a20a4187f8a5f1c2d15"
 }

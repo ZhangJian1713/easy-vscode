@@ -1,6 +1,6 @@
 {
   "name": "@easy-vscode/i18n",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "I18n of Easy Vscode",
   "keywords": [
     "i18n"
@@ -33,5 +33,5 @@
     "i18next": "^21.9.2",
     "react-i18next": "^11.18.6"
   },
-  "gitHead": "c7176970fc506150c5c924f266db0b8dcfbddc02"
+  "gitHead": "c204d9cd6d33337476284a20a4187f8a5f1c2d15"
 }

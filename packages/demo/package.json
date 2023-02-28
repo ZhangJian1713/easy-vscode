@@ -4,7 +4,7 @@
   "displayName": "Image Viewer",
   "description": "View all images of the current project",
   "icon": "assets/logo.png",
-  "version": "1.9.2",
+  "version": "1.9.3",
   "engines": {
     "vscode": "^1.60.0"
   },
@@ -158,9 +158,9 @@
   },
   "dependencies": {
     "@ant-design/icons": "^4.7.13",
-    "@easy-vscode/core": "^1.5.2",
-    "@easy-vscode/i18n": "^1.2.2",
-    "@easy-vscode/webview": "^1.6.2",
+    "@easy-vscode/core": "^1.5.3",
+    "@easy-vscode/i18n": "^1.2.3",
+    "@easy-vscode/webview": "^1.6.3",
     "ahooks": "^3.5.2",
     "antd": "^4.16.8",
     "axios": "^0.24.0",
@@ -176,5 +176,5 @@
   "resolutions": {
     "webpack": "5.73.0"
   },
-  "gitHead": "c7176970fc506150c5c924f266db0b8dcfbddc02"
+  "gitHead": "c204d9cd6d33337476284a20a4187f8a5f1c2d15"
 }
