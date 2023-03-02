@@ -16,6 +16,7 @@
     "png"
   ],
   "publisher": "vscode-infra",
+  "license": "MIT",
   "main": "./dist/extension.js",
   "scripts": {
     "check-type": "tsc --noEmit",
