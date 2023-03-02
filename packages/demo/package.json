@@ -1,7 +1,7 @@
 {
   "name": "@easy_vscode/demo",
   "displayName": "Image Viewer",
-  "version": "1.9.6",
+  "version": "1.9.7",
   "description": "View all images of the current project",
   "categories": [
     "Visualization",
@@ -15,8 +15,8 @@
     "pic",
     "png"
   ],
-  "publisher": "vscode-infra",
   "license": "MIT",
+  "publisher": "vscode-infra",
   "main": "./dist/extension.js",
   "scripts": {
     "check-type": "tsc --noEmit",
