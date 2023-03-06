@@ -55,7 +55,7 @@ export const getProjectPath = () => {
 /**
  * getExtensionFileAbsolutePath
  * @param context 
- * @param relativePath file path compare to root  path images/test.jpg
+ * @param relativePath file path compare to root  
  */
 export const getExtensionFileAbsolutePath = (context: vscode.ExtensionContext, relativePath: string) => {
   return path.join(context.extensionPath, relativePath)

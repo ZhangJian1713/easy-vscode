@@ -116,10 +116,10 @@ export const registryWebview = function (context: ExtensionContext, webview: IWe
   const { webviewProps, messageHandlers } = webview
   const { command, htmlPath, currentView, panelParams, iconPath } = webviewProps
   const { viewType, title, showOptions, options } = panelParams
-  const registerHandle = commands.registerCommand(command, function () {
+  const registerHandle = commands.registerCommand(command, function (...args) {
     const projectPath = utils.getProjectPath()
     if (!projectPath) {
-      utils.showInfo('Please open any folder before executing "View Images"')
+      utils.showInfo('Please open any folder before executing this extension')
       return
     }
     logInfo('viewType: ' + viewType)
@@ -137,6 +137,7 @@ export const registryWebview = function (context: ExtensionContext, webview: IWe
     panel.webview.html = getWebViewContent(context, htmlPath, panel.webview)
     panel.webview.html = panel.webview.html.replace('$currentView$', currentView)
     panel.webview.html = panel.webview.html.replace('$vscodeEnv$', JSON.stringify(getEnvForWebview()))
+    panel.webview.html = panel.webview.html.replace('$commandArgs$', JSON.stringify(args));
     // console.log('panel.webview.html:', panel.webview.html)
     const handleReceiveMessage = (msg: IMessage) => panel && handleWebviewMessage(msg, panel.webview)
     panel.webview.onDidReceiveMessage(handleReceiveMessage, undefined, context.subscriptions)
