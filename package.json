@@ -1,26 +1,24 @@
 {
-  "private": true,
   "name": "easy_vscode",
   "version": "0.1.0",
+  "private": true,
+  "author": "Zhang Jian",
+  "module": "es/index.js",
+  "typings": "es/index.d.ts",
   "workspaces": [
     "packages/*"
   ],
   "scripts": {
-    "prepare": "lerna bootstrap",
-    "dev": "dumi dev",
-    "start": "yarn dev",
-    "docs:build": "dumi build",
     "build": "father-build",
+    "dev": "dumi dev",
+    "docs:build": "dumi build",
+    "prepare": "lerna bootstrap",
     "prettier": "prettier --write \"**/*.{js,jsx,tsx,ts,less,md,json}\"",
-    "test": "umi-test",
-    "test:coverage": "umi-test --coverage",
     "pub": "yarn run build && lerna publish",
-    "pub:beta": "yarn run build && lerna publish --dist-tag beta"
-  },
-  "module": "es/index.js",
-  "typings": "es/index.d.ts",
-  "gitHooks": {
-    "pre-commit": "lint-staged"
+    "pub:beta": "yarn run build && lerna publish --dist-tag beta",
+    "start": "yarn dev",
+    "test": "umi-test",
+    "test:coverage": "umi-test --coverage"
   },
   "lint-staged": {
     "*.{js,jsx,less,md,json}": [
@@ -47,5 +45,7 @@
     "prettier": "^2.2.1",
     "yorkie": "^2.0.0"
   },
-  "author": "Zhang Jian"
+  "gitHooks": {
+    "pre-commit": "lint-staged"
+  }
 }

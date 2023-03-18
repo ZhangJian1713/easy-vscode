@@ -1,7 +1,7 @@
 {
   "name": "@easy_vscode/demo",
   "displayName": "Image Viewer",
-  "version": "1.9.10",
+  "version": "1.9.11",
   "description": "View all images of the current project",
   "categories": [
     "Visualization",
@@ -78,7 +78,7 @@
   },
   "dependencies": {
     "@ant-design/icons": "^4.7.13",
-    "@easy_vscode/core": "^1.6.0",
+    "@easy_vscode/core": "^1.6.1",
     "@easy_vscode/i18n": "^1.2.7",
     "@easy_vscode/webview": "^1.6.8",
     "ahooks": "^3.5.2",
