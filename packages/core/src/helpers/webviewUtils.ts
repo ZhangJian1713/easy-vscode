@@ -127,6 +127,10 @@ export const registryWebview = function (context: ExtensionContext, webview: IWe
     logInfo('webviewProps: ' + JSON.stringify(webviewProps))
     if (panel) {
       panel.reveal()
+      const func: any = messageCenter.get(MESSAGE_CMD.REVEAL_WEBVIEW)
+      if (func && typeof func === 'function') {
+        func({ commandArgs: args })
+      }
       return
     }
     panel = window.createWebviewPanel(viewType, title, showOptions, options)

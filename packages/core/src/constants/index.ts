@@ -13,4 +13,5 @@ export const MESSAGE_CMD = {
   EXECUTE_SPECIFIC_COMMAND: 'executeSpecificCommand',
   EXECUTE_CHILD_PROCESS: 'executeChildProcess',
   LOG_INFO: 'logInfo', // log for debug
+  REVEAL_WEBVIEW: 'revealWebview',
 }
