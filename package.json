@@ -10,6 +10,7 @@
   ],
   "scripts": {
     "build": "father-build",
+    "build:core": "cd packages/core && tsc --build && cd ../..",
     "dev": "dumi dev",
     "docs:build": "dumi build",
     "prepare": "lerna bootstrap",
