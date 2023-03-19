@@ -8,7 +8,7 @@ export const NATIVE_CMD = {
 }
 
 // prevent duplicate CMDs
-export const MESSAGE_CMD = {
+export const BUILTIN_MESSAGE_CMD = {
   /* Common */
   EXECUTE_SPECIFIC_COMMAND: 'executeSpecificCommand',
   EXECUTE_CHILD_PROCESS: 'executeChildProcess',

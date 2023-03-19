@@ -2,7 +2,7 @@ import { exec } from 'child_process'
 import * as fs from 'fs'
 import * as path from 'path'
 import { commands, ExtensionContext, Uri, Webview, WebviewPanel, WebviewView, window, env } from 'vscode'
-import { MESSAGE_CMD } from '../constants'
+import { BUILTIN_MESSAGE_CMD } from '../constants'
 import * as utils from './utils'
 import { IMessage, IWebview } from '../types'
 
@@ -25,19 +25,19 @@ export const setSidebarWebview = (sidebarWebview: WebviewView) => {
  */
 const messageCenter: Map<string, (message: IMessage, webview: Webview) => any> = new Map([
   [
-    MESSAGE_CMD.EXECUTE_SPECIFIC_COMMAND,
+    BUILTIN_MESSAGE_CMD.EXECUTE_SPECIFIC_COMMAND,
     (message: IMessage) => {
       commands.executeCommand(message.data.command)
     }
   ],
   [
-    MESSAGE_CMD.EXECUTE_CHILD_PROCESS,
+    BUILTIN_MESSAGE_CMD.EXECUTE_CHILD_PROCESS,
     (message: IMessage) => {
       exec(message.data.command)
     }
   ],
   [
-    MESSAGE_CMD.LOG_INFO,
+    BUILTIN_MESSAGE_CMD.LOG_INFO,
     (message: IMessage) => {
       utils.logInfo(message.data.info)
     }
@@ -127,7 +127,7 @@ export const registryWebview = function (context: ExtensionContext, webview: IWe
     logInfo('webviewProps: ' + JSON.stringify(webviewProps))
     if (panel) {
       panel.reveal()
-      const func: any = messageCenter.get(MESSAGE_CMD.REVEAL_WEBVIEW)
+      const func: any = messageCenter.get(BUILTIN_MESSAGE_CMD.REVEAL_WEBVIEW)
       if (func && typeof func === 'function') {
         func({ commandArgs: args })
       }
