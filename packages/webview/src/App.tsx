@@ -1,6 +1,5 @@
 import * as React from 'react'
 import { ConfigProvider } from 'antd'
-import 'antd/dist/antd.css'
 import './global.css'
 
 const NO_CURRENT_VIEW = '$currentView$'
