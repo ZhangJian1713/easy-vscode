@@ -1,19 +1,19 @@
 import * as React from 'react'
 import { ConfigProvider } from 'antd'
-import './global.css'
+import './antd-global.css'
 
 const NO_CURRENT_VIEW = '$currentView$'
 
-interface IAppProps{
-  components:Record<string, React.FunctionComponent>
+export interface WebviewRootProps {
+  components: Record<string, React.FC>
 }
 
-const App: React.FC<IAppProps> = ({components={}}:IAppProps)=> {
+export const AntdWebviewShell: React.FC<WebviewRootProps> = ({ components }) => {
   let currentView = (window as any).currentView
-  if(currentView === NO_CURRENT_VIEW) {
+  if (currentView === NO_CURRENT_VIEW) {
     currentView = Object.keys(components)[0]
   }
- const CurrentComponent = components[currentView]
+  const CurrentComponent = components[currentView]
   return (
     <ConfigProvider
       getPopupContainer={(triggerNode) => {
@@ -23,7 +23,5 @@ const App: React.FC<IAppProps> = ({components={}}:IAppProps)=> {
     >
       <CurrentComponent />
     </ConfigProvider>
-      )
-  }
-
-export default App
+  )
+}

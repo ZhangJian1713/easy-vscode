@@ -1,6 +1,6 @@
 body {
   background-color: #fff;
-  font-family: 'Roboto,PingFang SC';
+  font-family: 'Roboto,PingFang SC', sans-serif;
   font-size: 14px;
   padding: 0;
   margin: 0;
@@ -9,7 +9,6 @@ body {
   height: 100%;
 }
 
-/* remove drawer horizontal split line */
 .ant-drawer-wrapper-body .ant-drawer-header {
   border-bottom: none;
   padding: 16px 24px 8px;
@@ -25,7 +24,6 @@ body {
   font-size: 16px;
 }
 
-/* remove table columns split */
 div
   .ant-table-thead
   > tr
@@ -33,7 +31,6 @@ div
   background: none;
 }
 
-/* change selected menu appearance */
 div .ant-menu-inline .ant-menu-item::after {
   border-right: none;
 }
@@ -44,7 +41,6 @@ div .ant-menu-inline .ant-menu-item::after {
   border-left: 3px solid #2673dd;
 }
 
-/* sub menu bgcolor */
 .ant-menu-submenu .ant-menu-sub.ant-menu-inline {
   background: #fff;
 }
@@ -53,17 +49,14 @@ div .ant-tag {
   line-height: 24px;
 }
 
-/* let it be coverd by Modal.confirm,error... */
 div .ant-notification {
   z-index: 800;
 }
 
-/* change horizontal Form label margin right */
 div .ant-form-horizontal .ant-form-item-label > label {
   margin-right: 12px;
 }
 
-/* ui modal */
 div .ant-modal-confirm-body .ant-modal-confirm-title {
   font-size: 20px;
   font-weight: 500;

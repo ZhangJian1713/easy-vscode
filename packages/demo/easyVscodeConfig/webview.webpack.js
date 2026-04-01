@@ -1,8 +1,13 @@
 const path = require('path')
+const { createAntdLessWebviewWebpackConfig } = require('../../../webview-templates/antd-less/webpack.factory.js')
 
-const webpackConfig = require('@easy_vscode/webview/webpack.webview').default
+const context = path.resolve(__dirname, '..')
+const templateRoot = path.resolve(__dirname, '../../../webview-templates/antd-less')
 
-const entryApp = path.resolve(__dirname, '../src/webview/index.tsx')
-webpackConfig.entry.app = [entryApp]
-
-exports.default = webpackConfig
+module.exports = createAntdLessWebviewWebpackConfig({
+  context,
+  entry: path.resolve(context, 'src/webview/index.tsx'),
+  htmlTemplate: path.resolve(templateRoot, 'src/index.html'),
+  favicon: path.resolve(templateRoot, 'src/favicon.ico'),
+  babelConfig: path.resolve(context, '.babelrc')
+})

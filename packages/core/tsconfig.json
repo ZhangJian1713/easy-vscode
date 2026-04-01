@@ -1,11 +1,14 @@
 { 
   "compilerOptions": { 
-    "target": "es5", 
+    "target": "es2017", 
     "module": "commonjs", 
+    "moduleResolution": "node",
+    "lib": ["es2017", "dom"],
     "declaration": true, 
     "outDir": "./lib", 
-    "strict": true,
-    "skipLibCheck": true
+    "strict": false,
+    "skipLibCheck": true,
+    "types": ["node", "vscode"]
   }, 
   "include": [ "src/index.ts"], 
   "exclude": ["node_modules", "**/__tests__/*"] 
