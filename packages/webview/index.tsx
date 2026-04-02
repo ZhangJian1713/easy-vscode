@@ -1,20 +1,34 @@
 import * as React from 'react'
 import { render } from 'react-dom'
-import App from './src/App'
-import i18n, { i18next } from '@easy_vscode/i18n'
 
 export * from './src/helpers/callVscode'
 
-interface IWebviewComponents {
-  [componentName: string]: React.FC
+export type WebviewComponents = Record<string, React.FC>
+
+export interface WebviewRootProps {
+  components: WebviewComponents
 }
 
-export const registerWebview = function (webviewComponents: IWebviewComponents) {
-  const vscodeEnv = (window as any).vscodeEnv
-  const lng = vscodeEnv.language || 'en'
-  i18next.then(() => {
-    i18n.changeLanguage(lng,()=>{
-      render(<App components={webviewComponents} />, document.getElementById('root'))
-    })
-  })
+export interface RegisterWebviewOptions {
+  /** Root layout (e.g. Ant Design ConfigProvider). Default: mount selected view only. */
+  Root?: React.FC<WebviewRootProps>
+}
+
+const NO_CURRENT_VIEW = '$currentView$'
+
+const DefaultWebviewRoot: React.FC<WebviewRootProps> = ({ components }) => {
+  let currentView = (window as any).currentView
+  if (currentView === NO_CURRENT_VIEW) {
+    currentView = Object.keys(components)[0]
+  }
+  const CurrentComponent = components[currentView]
+  return CurrentComponent ? <CurrentComponent /> : null
+}
+
+export const registerWebview = function (
+  webviewComponents: WebviewComponents,
+  options?: RegisterWebviewOptions
+) {
+  const Root = options?.Root ?? DefaultWebviewRoot
+  render(<Root components={webviewComponents} />, document.getElementById('root'))
 }

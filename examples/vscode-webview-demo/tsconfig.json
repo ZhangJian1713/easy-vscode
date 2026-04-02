@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "lib": ["es2017", "dom"],
+    "moduleResolution": "node",
+    "outDir": "./dist",
+    "baseUrl": "src",
+    "rootDirs": ["src"],
+    "jsx": "react",
+    "sourceMap": true,
+    "strictNullChecks": false,
+    "target": "es6",
+    "skipLibCheck": true,
+    "types": ["node", "vscode"],
+    "importHelpers": true,
+    "noEmit": false,
+    "allowSyntheticDefaultImports": true
+  },
+  "exclude": ["dist"],
+  "include": ["src/**/*", "index.d.ts"]
+}
+
