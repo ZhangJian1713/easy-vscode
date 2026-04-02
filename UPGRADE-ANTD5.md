@@ -1,37 +1,41 @@
-# Ant Design 5 升级说明
+# Ant Design 5 upgrade notes
 
-## 发布顺序（必须遵守）
+## Release order (required)
 
-1. **先发布 easy-vscode**：`yarn pub` 或 `lerna publish` 发布 @easy_vscode/webview@1.7.0
-2. **再升级 vscode-image-viewer**：将 @easy_vscode/webview 依赖更新为 ^1.7.0 后发布
+1. **Publish `easy-vscode` first**: run `yarn pub` or `lerna publish` and ship `@easy_vscode/webview@1.7.0`.
+2. **Then upgrade `vscode-image-viewer`**: bump `@easy_vscode/webview` to `^1.7.0` and publish.
 
-vscode-image-viewer 依赖 @easy_vscode/webview，必须先发布 easy-vscode 新版本。
+`vscode-image-viewer` depends on `@easy_vscode/webview`, so the library must be published before the extension.
 
-### 本地联调（发布前测试）
+### Local integration (pre-release)
+
 ```bash
-# 在 easy-vscode 中
+# In easy-vscode
 cd packages/webview && yarn link
 
-# 在 vscode-image-viewer 中
+# In vscode-image-viewer
 yarn link @easy_vscode/webview
 ```
 
-## 本次变更
+## Changes in this upgrade
 
-### packages/webview
-- antd ^4.22.5 → ^5.22.0
-- @ant-design/icons ^4.7.16 → ^5.5.0
-- App.tsx: 移除 `antd/dist/antd.css`（antd 5 使用 CSS-in-JS）
-- .babelrc: 移除 babel-plugin-import for antd
+### `packages/webview`
+
+- `antd` ^4.22.5 → ^5.22.0
+- `@ant-design/icons` ^4.7.16 → ^5.5.0
+- `App.tsx`: remove `antd/dist/antd.css` (Ant Design 5 uses CSS-in-JS)
+- `.babelrc`: remove `babel-plugin-import` for `antd`
 - version: 1.6.9 → 1.7.0
 
-### packages/demo
-- antd ^4.16.8 → ^5.22.0
-- @ant-design/icons ^4.7.13 → ^5.5.0
-- @easy_vscode/webview ^1.6.9 → ^1.7.0
-- Dropdown: overlay → menu API
-- .babelrc: 移除 babel-plugin-import for antd
-- resolutions: 添加 rc-util 5.44.4
+### `packages/demo`
 
-### 根目录
-- resolutions: rc-util 5.44.4
+- `antd` ^4.16.8 → ^5.22.0
+- `@ant-design/icons` ^4.7.13 → ^5.5.0
+- `@easy_vscode/webview` ^1.6.9 → ^1.7.0
+- `Dropdown`: `overlay` → `menu` API
+- `.babelrc`: remove `babel-plugin-import` for `antd`
+- `resolutions`: add `rc-util` 5.44.4
+
+### Repository root
+
+- `resolutions`: `rc-util` 5.44.4

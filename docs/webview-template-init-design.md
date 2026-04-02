@@ -1,96 +1,98 @@
-# Webview 模板初始化：设计与约定
+# Webview template initialization: design and conventions
 
-## 问题背景
+## Background
 
-- **Runtime**：`@easy_vscode/webview`（npm 或 `file:`）只提供 `registerWebview` / `callVscode`。
-- **前端工程**：`webpack`、`index.html`、`favicon`、可选 Ant Design 壳等放在 **`easy-vscode/webview-templates/*`**，由扩展仓库引用或**拷贝**后自行维护。
+- **Runtime**: `@easy_vscode/webview` (npm or `file:`) only exposes `registerWebview` / `callVscode`.
+- **Frontend build**: `webpack`, `index.html`, `favicon`, optional Ant Design shell, etc. live under **`easy-vscode/webview-templates/*`**, referenced from the extension repo or **copied** and owned there.
 
-用户需要：**可重复的接线方式**、**幂等**（已有文件不覆盖）、以及未来可做成 **npm 命令** 的路径。
-
----
-
-## `vscode-webview-demo` 用哪个模板？
-
-- **当前应使用 `minimal-react`**（无 Ant Design，与 demo 一致）。
-- **不要用 `antd-less`**，除非你在 demo 里引入 antd 并复制 `AntdWebviewShell` + 全局样式。
-
-二者关系：
-
-| 模板 | 适用 |
-|------|------|
-| `minimal-react` | React + 普通 CSS，轻量 demo |
-| `antd-less` | Ant Design + Less（与 `vscode-image-viewer` 同类） |
+Goals: **repeatable wiring**, **idempotency** (do not clobber existing files by default), and paths that can later be wrapped as an **npm CLI**.
 
 ---
 
-## 目录约定（建议作为检查条件）
+## Which template for `vscode-webview-demo`?
 
-在扩展项目根目录（含 `package.json`）下约定：
+The minimal demo lives at **`examples/vscode-webview-demo`** in this repo.
 
-| 路径 | 含义 |
-|------|------|
-| `src/webview/index.tsx` | Webpack **入口**；内部调用 `registerWebview(...)` |
-| `src/webview/**/*.tsx` | 业务 Webview 组件 |
-| **`scaffold/webview.webpack.js`** | Webpack CLI 入口 |
-| **`scaffold/bundler/`** | Vendor 出的模板（factory + HTML/favicon），与业务分离 |
+- **Use `minimal-react`** by default (no Ant Design; matches the demo).
+- **Do not use `antd-less`** unless you add Ant Design in the demo and copy `AntdWebviewShell` plus global styles.
 
-**旧仓库**仍可保留 `easyVscodeConfig/webview.webpack.js`，与 **`scaffold/`** 二选一即可。新约定与 `init-webview-template` 默认写入 **`scaffold/`**。
+Relationship:
 
-初始化脚本**默认**只保证生成/更新 **`scaffold/webview.webpack.js`**；**不强制**创建 `src/webview`（避免覆盖业务代码）。可选 `--check-entry` 仅打印缺失提示。
-
----
-
-## 「源码」如何利用起来？
-
-两种方式（可同时写进文档，由脚本支持）：
-
-### A. Monorepo 引用（你现在的方式）
-
-- 不拷贝模板目录，直接从仓库路径 `require('.../easy-vscode/webview-templates/.../webpack.factory.js')`。
-- **优点**：改一处模板，所有子项目立刻跟上。
-- **缺点**：发布后扩展仓库里**没有** `easy-vscode` 时，必须改用模式 B。
-
-### B. 内联拷贝（`--vendor`）
-
-- 将所选模板 **复制**到扩展根下的 **`scaffold/bundler/`**（可被 minimal / antd-less 整目录替换；可提交到 git）。
-- **`scaffold/webview.webpack.js`** 内 `require` 指向 **`./bundler/webpack.factory.js`**。
-- **优点**：扩展可独立 clone、发版，不依赖 monorepo 路径。
-- **缺点**：模板升级需重新跑脚本或手动合并。
+| Template       | Use case                                        |
+|----------------|-------------------------------------------------|
+| `minimal-react` | React + plain CSS; lightweight demo             |
+| `antd-less`     | Ant Design + Less (same class as `vscode-image-viewer`) |
 
 ---
 
-## 幂等行为
+## Directory conventions (recommended checks)
 
-| 目标 | 默认 | `--force` |
-|------|------|-----------|
-| `easyVscodeConfig/webview.webpack.js` | 已存在则 **跳过写入** | 覆盖 |
-| `scaffold/bundler/`（`--vendor`） | 目录已存在且非空则 **跳过拷贝** | **`--force` 先删再拷** |
+From the extension root (where `package.json` lives):
 
-脚本退出码：`0` 表示成功（含 skipped）；非 0 表示参数错误或找不到模板根目录。
+| Path                         | Role                                                                 |
+|------------------------------|----------------------------------------------------------------------|
+| `src/webview/index.tsx`      | Webpack **entry**; calls `registerWebview(...)` inside               |
+| `src/webview/**/*.tsx`       | Webview UI components                                                |
+| **`scaffold/webview.webpack.js`** | Webpack CLI entry file                                        |
+| **`scaffold/bundler/`**      | Vendored template (factory + HTML/favicon), separate from app code   |
+
+**Legacy** repos may keep `easyVscodeConfig/webview.webpack.js`; choose **either** that **or** **`scaffold/`**. New setups and `init-webview-template` default to **`scaffold/`**.
+
+The init script **by default** only ensures **`scaffold/webview.webpack.js`** is created/updated; it does **not** insist on creating `src/webview` (avoids overwriting product code). Optional `--check-entry` only prints missing-path hints.
 
 ---
 
-## npm 包 / 命令形态（演进）
+## How “source” templates are consumed
 
-**现阶段**：在 `easy-vscode` 仓库内提供：
+Two modes (document both; the script supports them):
+
+### A. Monorepo reference (current style)
+
+- Do not copy the template; `require('.../easy-vscode/webview-templates/.../webpack.factory.js')` directly.
+- **Pros**: one template change rolls out to all dependents immediately.
+- **Cons**: after publish, the extension repo may have **no** `easy-vscode` checkout—switch to mode B.
+
+### B. Vendor copy (`--vendor`)
+
+- **Copy** the chosen template into **`scaffold/bundler/`** at the extension root (replace whole directory when switching `minimal-react` / `antd-less`; commit to git if desired).
+- **`scaffold/webview.webpack.js`** `require`s **`./bundler/webpack.factory.js`**.
+- **Pros**: extension clone and release work without monorepo paths.
+- **Cons**: template upgrades need rerun script or manual merge.
+
+---
+
+## Idempotent behavior
+
+| Target                                      | Default                         | `--force`                    |
+|---------------------------------------------|---------------------------------|------------------------------|
+| `easyVscodeConfig/webview.webpack.js`       | **skip** if present             | overwrite                    |
+| `scaffold/bundler/` (`--vendor`)            | **skip copy** if dir non-empty | delete dir, then copy        |
+
+Exit code `0` on success (including skipped steps); non-zero on valid errors or missing template root.
+
+---
+
+## npm / CLI evolution
+
+**Today**, from the `easy-vscode` repo:
 
 ```bash
 node easy-vscode/scripts/init-webview-template.cjs --cwd /path/to/extension --template minimal-react
 ```
 
-**下一阶段**（可选）：发布 `@easy_vscode/create-webview` 或 `create-easy-vscode-webview`，内部打包模板 tarball，执行：
+**Later** (optional): ship `@easy_vscode/create-webview` or `create-easy-vscode-webview` with a bundled template tarball:
 
 ```bash
 npx @easy_vscode/create-webview --template minimal-react
 ```
 
-实现上等价于：解析模板包内路径 + 写 **`scaffold/webview.webpack.js`** + 可选 `--vendor` 解压到 **`scaffold/bundler/`**。
+Implementation-wise: resolve paths inside the package, write **`scaffold/webview.webpack.js`**, and optionally **`--vendor`** extract into **`scaffold/bundler/`**.
 
 ---
 
-## 与 `@easy_vscode/webview` 的关系
+## Relationship to `@easy_vscode/webview`
 
-- **依赖**：扩展的 `package.json` 始终声明 `@easy_vscode/webview`（生产用 semver，开发用 `file:`）。
-- **模板**：与 npm 包 **分离**；脚本只处理 **webpack/HTML 路径**，不安装 runtime。
+- **Dependency**: extension `package.json` always lists `@easy_vscode/webview` (semver in production, `file:` in dev).
+- **Templates**: **separate** from the npm package; the script only wires **webpack/HTML paths**, it does not install runtime.
 
-这样既满足「只依赖一个小 runtime 包」，又满足「webpack 完全自控」。
+This keeps “small runtime dependency” and “full bundler ownership” at once.

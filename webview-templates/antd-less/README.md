@@ -21,7 +21,7 @@ No webpack, no Ant Design, no i18n inside the npm runtime surface.
 
 ## Monorepo wiring
 
-新项目：`scaffold/webview.webpack.js` + `scaffold/bundler/`（vendor）。仍使用 `easyVscodeConfig/` 的仓库见 `vscode-image-viewer`。
+Recommended layout: `scaffold/webview.webpack.js` + `scaffold/bundler/` (vendored template). Extensions that still use `easyVscodeConfig/` include older setups of `vscode-image-viewer`.
 
 ## npm / standalone repo
 

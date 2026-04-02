@@ -10,7 +10,7 @@
 |-------|----------|----------------|
 | **Runtime** | `packages/webview` (`@easy_vscode/webview`) | `registerWebview(components, options?)`, `callVscode`, message typing for IPC |
 | **Frontend app** | `webview-templates/*` | `webpack.factory.js`, `index.html`, favicon, global CSS, optional `AntdWebviewShell` sample |
-| **Consumer** | Your extension | Business in `src/`; tooling in **`scaffold/`** (`webview.webpack.js`, `bundler/`)；旧项目可用 `easyVscodeConfig/`；根目录 `.babelrc` 与 `package.json` |
+| **Consumer** | Your extension | Business in `src/`; tooling in **`scaffold/`** (`webview.webpack.js`, `bundler/`). Legacy projects may use `easyVscodeConfig/`; root `.babelrc` and `package.json` |
 
 ## What moved out of `packages/webview`
 

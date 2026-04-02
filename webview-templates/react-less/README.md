@@ -1,12 +1,12 @@
-# react-less（已合并迁移）
+# react-less (merged / migration pointer)
 
-此目录**没有**独立 `package.json` 与完整代码，仅为迁移说明。**实际可复制的模板只有两个**：`minimal-react`、`antd-less`。
+This folder **has no** standalone `package.json` or full template code—only migration notes. The **two copyable templates** are **`minimal-react`** and **`antd-less`**.
 
-这里的旧模板已移除，请改用：
+Use these instead:
 
-| 需求 | 目录 |
-|------|------|
+| Need | Directory |
+|------|-----------|
 | Ant Design + Less + React | [`../antd-less/`](../antd-less/) |
-| 仅 React + 普通 CSS（无 Ant Design） | [`../minimal-react/`](../minimal-react/) |
+| React + plain CSS only (no Ant Design) | [`../minimal-react/`](../minimal-react/) |
 
-Webpack 配置在对应目录的 `webpack.factory.js` 中，不再从 `@easy_vscode/webview` 包内提供（`@easy_vscode/webview@2.x`）。
+Webpack setup lives in each folder’s `webpack.factory.js`; it is **not** shipped inside `@easy_vscode/webview` (`@easy_vscode/webview@2.x`).

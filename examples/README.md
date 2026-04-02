@@ -1,9 +1,9 @@
 # Examples
 
-可独立开发与调试的 **VS Code 扩展示例**（不随 npm 发布；`packages/*` 仍为库包）。
+Runnable **VS Code extension examples** for local development and debugging. These are **not** published to npm; **`packages/*`** remains the library surface.
 
-| 目录 | 说明 |
-|------|------|
-| [vscode-webview-demo](./vscode-webview-demo/) | 最小 Webview + `@easy_vscode/core` / `@easy_vscode/webview` 消息演示；使用 `scaffold/` 与上游 `webview-templates`。 |
+| Directory            | Description |
+|----------------------|-------------|
+| [vscode-webview-demo](./vscode-webview-demo/) | Minimal webview + `@easy_vscode/core` / `@easy_vscode/webview` messaging demo; uses `scaffold/` and upstream `webview-templates`. |
 
-在示例目录内执行 `yarn`、`yarn prepare:easy-vscode`（若依赖 `file:` 指向本地 `packages/*`）、再 `yarn package` / F5 即可。
+In an example folder: run `yarn`, then `yarn prepare:easy-vscode` when using `file:` to local `packages/*`, then `yarn package` or F5.

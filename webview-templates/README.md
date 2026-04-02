@@ -2,12 +2,12 @@
 
 Copy these folders into your VS Code extension (or reference them from a monorepo) and **own** the webpack/HTML/CSS stack.
 
-| Template | When to use |
-|----------|-------------|
-| **antd-less** | Ant Design + Less + React (same class of setup as `vscode-image-viewer`). |
-| **minimal-react** | React + plain CSS only (e.g. `vscode-webview-demo`). |
+| Template        | When to use |
+|-----------------|-------------|
+| **antd-less**   | Ant Design + Less + React (same class of setup as `vscode-image-viewer`). |
+| **minimal-react** | React + plain CSS only (e.g. `examples/vscode-webview-demo`). |
 
-`@easy_vscode/webview` npm package should only provide **runtime** (`registerWebview`, `callVscode`), not webpack.
+The `@easy_vscode/webview` npm package should only provide **runtime** (`registerWebview`, `callVscode`), not webpack.
 
 ## Why there is no `package.json` inside each template
 
@@ -19,7 +19,7 @@ The **`react-less` folder** is only a migration pointer (see its README); the re
 
 Each template exports a webpack **factory** that returns the standard `(env, argv) => config` shape.
 
-推荐目录：`scaffold/webview.webpack.js` + `scaffold/bundler/`（vendor 出的模板）。示例（monorepo 直引，未 vendor 时）：
+**Recommended layout**: `scaffold/webview.webpack.js` + `scaffold/bundler/` (vendored template). Example when referencing the monorepo **without** vendor (paths vary with repo layout):
 
 ```js
 const path = require('path')
@@ -37,20 +37,20 @@ module.exports = createAntdLessWebviewWebpackConfig({
 })
 ```
 
-已 vendor 时把 `require` / `templateRoot` 改为 `./bundler/...`（见 `vscode-webview-demo/scaffold/`）。
+After **`--vendor`**, point `require` and `templateRoot` at `./bundler/...` (see `easy-vscode/examples/vscode-webview-demo/scaffold/`).
 
 After publishing to npm, copy this template into your repo so paths stay under your control.
 
 ## One-shot wiring (monorepo)
 
-From your **extension root** (e.g. `vscode-webview-demo/`):
+From your **extension root** (e.g. `easy-vscode/examples/vscode-webview-demo/`):
 
 ```bash
-node ../easy-vscode/scripts/init-webview-template.cjs --cwd . --template minimal-react --vendor
+node ../../scripts/init-webview-template.cjs --cwd . --template minimal-react --vendor
 ```
 
 - Skips overwriting `scaffold/webview.webpack.js` if it already exists (use `--force` to replace).
 - Use `--template antd-less` for Ant Design + Less projects.
-- Use `--vendor` to copy the template into **`extension-webview/`** and wire paths there (for standalone repos).
+- Use `--vendor` to copy the template into **`scaffold/bundler/`** and wire paths for standalone clones.
 
 See [webview-template-init-design.md](../docs/webview-template-init-design.md).
