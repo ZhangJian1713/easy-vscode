@@ -108,11 +108,43 @@ const addMessageHandler = (messageHandlers: Map<string, (message: IMessage, webv
 
 const getEnvForWebview = () => {
   return {
-    language: env.language
+    language: env.language,
+    colorThemeKind: window.activeColorTheme.kind
   }
 }
 
+const postColorThemeToWebview = (webview: Webview) => {
+  webview.postMessage({
+    cmd: BUILTIN_MESSAGE_CMD.COLOR_THEME,
+    data: { kind: window.activeColorTheme.kind }
+  })
+}
+
+const broadcastColorThemeToAllWebviews = () => {
+  const payload = {
+    cmd: BUILTIN_MESSAGE_CMD.COLOR_THEME,
+    data: { kind: window.activeColorTheme.kind }
+  }
+  panels.forEach((p) => p.webview.postMessage(payload))
+  if (_sidebar) {
+    _sidebar.webview.postMessage(payload)
+  }
+}
+
+let colorThemeSubscription: { dispose(): void } | undefined
+
+const ensureColorThemeSubscription = (context: ExtensionContext) => {
+  if (colorThemeSubscription) {
+    return
+  }
+  colorThemeSubscription = window.onDidChangeActiveColorTheme(() => {
+    broadcastColorThemeToAllWebviews()
+  })
+  context.subscriptions.push(colorThemeSubscription)
+}
+
 export const registryWebview = function (context: ExtensionContext, webview: IWebview) {
+  ensureColorThemeSubscription(context)
   const { webviewProps, messageHandlers } = webview
   const { command, htmlPath, currentView, panelParams, iconPath } = webviewProps
   const { viewType, title, showOptions, options } = panelParams
@@ -127,6 +159,9 @@ export const registryWebview = function (context: ExtensionContext, webview: IWe
     logInfo('webviewProps: ' + JSON.stringify(webviewProps))
     if (panel) {
       panel.reveal()
+      if (panel.webview) {
+        postColorThemeToWebview(panel.webview)
+      }
       panel.webview?.postMessage({ cmd: BUILTIN_MESSAGE_CMD.REVEAL_WEBVIEW, data: { commandArgs: args } })
       return
     }
@@ -143,6 +178,7 @@ export const registryWebview = function (context: ExtensionContext, webview: IWe
     const handleReceiveMessage = (msg: IMessage) => panel && handleWebviewMessage(msg, panel.webview)
     panel.webview.onDidReceiveMessage(handleReceiveMessage, undefined, context.subscriptions)
     panels.set(viewType, panel)
+    postColorThemeToWebview(panel.webview)
     // Reset when the current panel is closed
     panel.onDidDispose(
       () => {

@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
-import { callVscode } from '@easy_vscode/webview'
+import { callVscode, useColorThemeKind, VscodeColorThemeKind } from '@easy_vscode/webview'
 import { MESSAGE_CMD } from '../../constants'
 import './style.css'
 
 const DemoPanel: React.FC = () => {
   const [log, setLog] = useState('Click a button to test messaging')
+  const colorThemeKind = useColorThemeKind()
+  const themeLabel = VscodeColorThemeKind[colorThemeKind] ?? String(colorThemeKind)
 
   const onPing = () => {
     callVscode({ cmd: MESSAGE_CMD.PING }, (resp) => {
@@ -22,6 +24,9 @@ const DemoPanel: React.FC = () => {
     <div className='demo-root'>
       <h2>easy-vscode Webview Demo</h2>
       <p>This page tests extension/webview two-way messaging.</p>
+      <p className='theme-hint'>
+        VS Code color theme (from <code>useColorThemeKind</code>): <strong>{themeLabel}</strong>
+      </p>
       <div className='actions'>
         <button onClick={onPing}>Send PING</button>
         <button onClick={onGetInfo}>Get Extension Info</button>

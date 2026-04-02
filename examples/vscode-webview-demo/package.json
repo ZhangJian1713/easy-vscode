@@ -34,8 +34,8 @@
     "check-type": "tsc --noEmit"
   },
   "dependencies": {
-    "@easy_vscode/core": "^1.7.2",
-    "@easy_vscode/webview": "^1.6.9",
+    "@easy_vscode/core": "file:../../packages/core",
+    "@easy_vscode/webview": "file:../../packages/webview",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
   },

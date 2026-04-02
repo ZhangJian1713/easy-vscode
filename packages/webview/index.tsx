@@ -2,6 +2,14 @@ import * as React from 'react'
 import { render } from 'react-dom'
 
 export * from './src/helpers/callVscode'
+import { ColorThemeBridge } from './src/colorTheme'
+
+export {
+  ColorThemeBridge,
+  useColorThemeKind,
+  VscodeColorThemeKind,
+  VSCODE_COLOR_THEME_CMD
+} from './src/colorTheme'
 
 export type WebviewComponents = Record<string, React.FC>
 
@@ -30,5 +38,10 @@ export const registerWebview = function (
   options?: RegisterWebviewOptions
 ) {
   const Root = options?.Root ?? DefaultWebviewRoot
-  render(<Root components={webviewComponents} />, document.getElementById('root'))
+  render(
+    <ColorThemeBridge>
+      <Root components={webviewComponents} />
+    </ColorThemeBridge>,
+    document.getElementById('root')
+  )
 }

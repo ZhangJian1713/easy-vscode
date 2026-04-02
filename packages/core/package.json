@@ -1,6 +1,6 @@
 {
   "name": "@easy_vscode/core",
-  "version": "1.7.2",
+  "version": "1.7.3",
   "description": "core of Easy Vscode",
   "repository": {
     "type": "git",
@@ -18,6 +18,12 @@
     "clean": "rimraf lib",
     "prestart": "yarn clean",
     "start": "tsc --watch"
+  },
+  "devDependencies": {
+    "@types/node": "16.18.68",
+    "@types/vscode": "^1.74.0",
+    "rimraf": "^3.0.2",
+    "typescript": "5.4.5"
   },
   "publishConfig": {
     "access": "public",

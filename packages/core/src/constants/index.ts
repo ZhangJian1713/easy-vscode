@@ -14,4 +14,6 @@ export const BUILTIN_MESSAGE_CMD = {
   EXECUTE_CHILD_PROCESS: 'executeChildProcess',
   LOG_INFO: 'logInfo', // log for debug
   REVEAL_WEBVIEW: 'revealWebview',
+  /** Posted when VS Code color theme changes; `data.kind` matches `vscode.ColorThemeKind`. */
+  COLOR_THEME: 'vscodeColorTheme',
 }

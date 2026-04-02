@@ -18,6 +18,10 @@
   color: var(--vscode-descriptionForeground);
 }
 
+.demo-root .theme-hint code {
+  font-size: 0.95em;
+}
+
 .actions {
   display: flex;
   gap: 10px;
