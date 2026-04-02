@@ -1,45 +1,47 @@
-# 可行性验证流程（vscode-webview-demo）
+# Verification Guide (vscode-webview-demo)
 
-## 前置条件
+## Prerequisites
 
-- 用 **VS Code / Cursor 单独打开文件夹** `easy-vscode/examples/vscode-webview-demo`（不要只用多根工作区里错误的子根按 F5）。
-- 本机已安装 Node / Yarn。本示例位于 **easy-vscode 仓库内**，`yarn vendor:template` 会解析同仓库的 `webview-templates/`；若在异形的 monorepo 里，可设 `EASY_VSCODE_ROOT`。
-- 若使用 `file:../../packages/core`，需先编出 `core` 的 `lib`：  
+- Open folder `easy-vscode/examples/vscode-webview-demo` directly in VS Code / Cursor.
+- Node.js and Yarn are installed.
+- This example lives inside the `easy-vscode` repo, so `yarn vendor:template` resolves templates from the local `webview-templates/` directory. For custom layouts, set `EASY_VSCODE_ROOT`.
+- If you use `file:../../packages/core`, build core `lib` first:
   `yarn prepare:easy-vscode`
 
-## 一键检查清单
+## Checklist
 
-1. **安装依赖**  
+1. Install dependencies:
    `yarn`
 
-2. **（首次或更新模板后）拷贝模板到 `scaffold/bundler/`**  
-   `yarn vendor:template`  
-   覆盖：`yarn vendor:template -- --force`
+2. Vendor template files into `scaffold/bundler/` (first run or template changes):
+   `yarn vendor:template`
+   Force overwrite: `yarn vendor:template -- --force`
 
-3. **编译 Webview + 扩展宿主**  
-   `yarn package`（使用 `scaffold/webview.webpack.js`）  
-   成功后应存在：
-   - `distWebview/index.html`（及 `app*.js` 等）
+3. Build webview + extension host:
+   `yarn package` (uses `scaffold/webview.webpack.js`)
+
+   Expected outputs:
+   - `distWebview/index.html` (plus `app*.js` artifacts)
    - `dist/extension.js`
 
-4. **类型检查（可选）**  
+4. Optional type check:
    `yarn check-type`
 
-## 在编辑器里测 UI
+## UI test in editor
 
-1. 选启动配置 **「Run Webview Demo Extension」**（会先执行 `demo:package` 任务，等价 `yarn package`）。
-2. **F5** 打开 Extension Development Host。
-3. 命令面板：`Open Webview Demo`。
-4. 在面板里点 **Send PING** / **Get Extension Info**，日志区应出现扩展端回传的 JSON。
+1. Select launch config **Run Webview Demo Extension** (runs `demo:package` task, equivalent to `yarn package`).
+2. Press `F5` to open Extension Development Host.
+3. Open command palette and run: `Open Webview Demo`.
+4. Click **Send PING** / **Get Extension Info** in the panel and verify JSON responses in logs.
 
-## 常见问题
+## Troubleshooting
 
-| 现象 | 处理 |
+| Symptom | Fix |
 |------|------|
-| `command 'webview-demo.open' not found` | 确认工作区根是 `examples/vscode-webview-demo`；先 `yarn package`，再 F5。 |
-| `@easy_vscode/core` 找不到 `lib` | 执行 `yarn prepare:easy-vscode`。 |
-| 找不到 `scaffold/bundler/webpack.factory.js` | 执行 `yarn vendor:template`。 |
+| `command 'webview-demo.open' not found` | Ensure workspace root is `examples/vscode-webview-demo`; run `yarn package`; press `F5` again. |
+| `@easy_vscode/core` cannot find `lib` | Run `yarn prepare:easy-vscode`. |
+| Missing `scaffold/bundler/webpack.factory.js` | Run `yarn vendor:template`. |
 
-## 本环境实测结果
+## Verified in this environment
 
-在仓库当前状态下执行 `yarn package` 已通过，`distWebview` 与 `dist/extension.js` 已生成（你本地应以自己机器结果为准）。
+`yarn package` succeeds and generates `distWebview` and `dist/extension.js` in current repo state.
