@@ -5,7 +5,7 @@
 - Open folder `easy-vscode/examples/vscode-webview-demo` directly in VS Code / Cursor.
 - Node.js and Yarn are installed.
 - This example lives inside the `easy-vscode` repo, so `yarn vendor:template` resolves templates from the local `webview-templates/` directory. For custom layouts, set `EASY_VSCODE_ROOT`.
-- Dependencies use **npm semver** (see `package.json`; e.g. `@easy_vscode/core` ^1.7.2, `@easy_vscode/webview` ^1.6.9 — bump ranges after publishing new versions). After `yarn`, run **`yarn prepare:easy-vscode`** to compile `packages/core` and copy **`packages/core/lib`** plus **`packages/webview`** into `node_modules` (monorepo development only; overlays unpublished local sources such as webview `2.x`).
+- Dependencies use **npm semver** (see `package.json`; e.g. `@easy_vscode/core` ^1.7.2, `@easy_vscode/webview` ^1.6.9 — bump ranges after publishing new versions). After `yarn`, run **`yarn prepare:easy-vscode`** to compile `packages/core` and copy **`packages/core/lib`** plus **`packages/webview`** into `node_modules` (monorepo development only; overlays unpublished local sources such as webview `2.x`). **`prepare` does not re-run on save**; after editing those packages run it again or use `yarn link` — see [README.md](./README.md#monorepo-editing-packagescore-or-packageswebview).
 
 ## Checklist
 
