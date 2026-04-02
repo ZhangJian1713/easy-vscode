@@ -12,10 +12,10 @@ Step-by-step verification: [TESTING.md](./TESTING.md).
 
 ## Quick start
 
-1. Build local core package:
-   - `yarn prepare:easy-vscode`
-2. Install dependencies:
+1. Install dependencies (semver ranges resolve from npm; bump when you publish new majors):
    - `yarn`
+2. **Inside this monorepo only**: overlay your checkout of `packages/core` and `packages/webview` into `node_modules` (needed to test unpublished API changes):
+   - `yarn prepare:easy-vscode`
 3. Vendor template assets into `scaffold/bundler/` (first run or after template updates):
    - `yarn vendor:template`
    - Force overwrite: `yarn vendor:template -- --force`

@@ -24,7 +24,7 @@
     ]
   },
   "scripts": {
-    "prepare:easy-vscode": "yarn --cwd ../../packages/core node ../../node_modules/typescript/bin/tsc --build tsconfig.json && rm -rf ./node_modules/@easy_vscode/core/lib && cp -R ../../packages/core/lib ./node_modules/@easy_vscode/core/lib",
+    "prepare:easy-vscode": "yarn --cwd ../../packages/core node ../../node_modules/typescript/bin/tsc --build tsconfig.json && rm -rf ./node_modules/@easy_vscode/core/lib && cp -R ../../packages/core/lib ./node_modules/@easy_vscode/core/lib && rm -rf ./node_modules/@easy_vscode/webview && cp -R ../../packages/webview ./node_modules/@easy_vscode/webview && rm -rf ./node_modules/@easy_vscode/webview/node_modules",
     "vendor:template": "node scripts/vendor-minimal-react-template.cjs",
     "compile": "webpack --config webpack.extension.js",
     "watch": "webpack --config webpack.extension.js --watch",
@@ -34,8 +34,8 @@
     "check-type": "tsc --noEmit"
   },
   "dependencies": {
-    "@easy_vscode/core": "file:../../packages/core",
-    "@easy_vscode/webview": "file:../../packages/webview",
+    "@easy_vscode/core": "^1.7.2",
+    "@easy_vscode/webview": "^1.6.9",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
   },
