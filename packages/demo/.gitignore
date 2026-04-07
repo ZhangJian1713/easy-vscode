@@ -1,8 +1,0 @@
-logs/
-out
-dist
-distWebview
-node_modules
-.vscode-test/
-*.vsix
-nodejs/
