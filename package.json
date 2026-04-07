@@ -13,11 +13,12 @@
     "build:core": "cd packages/core && tsc --build && cd ../..",
     "dev": "dumi dev",
     "docs:build": "dumi build",
-    "prepare": "lerna bootstrap",
     "init-webview-template": "node scripts/init-webview-template.cjs",
+    "prepare": "lerna bootstrap",
     "prettier": "prettier --write \"**/*.{js,jsx,tsx,ts,less,md,json}\"",
-    "pub": "yarn run build && lerna publish",
-    "pub:beta": "yarn run build && lerna publish --dist-tag beta",
+    "pub": "yarn run build && yarn lerna publish",
+    "pub:from-package": "yarn run build && yarn lerna publish from-package",
+    "pub:beta": "yarn run build && yarn lerna publish --dist-tag beta",
     "start": "yarn dev",
     "test": "umi-test",
     "test:coverage": "umi-test --coverage"
@@ -30,11 +31,11 @@
       "prettier --parser=typescript --write"
     ]
   },
-  "dependencies": {
-    "react": "^17.0.0"
-  },
   "resolutions": {
     "rc-util": "5.44.4"
+  },
+  "dependencies": {
+    "react": "^17.0.0"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.15.1",
