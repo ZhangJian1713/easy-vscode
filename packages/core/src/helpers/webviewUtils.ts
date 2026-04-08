@@ -1,7 +1,7 @@
 import { exec } from 'child_process'
 import * as fs from 'fs'
 import * as path from 'path'
-import { commands, ExtensionContext, Uri, Webview, WebviewPanel, WebviewView, window, env } from 'vscode'
+import { commands, ExtensionContext, Uri, Webview, WebviewPanel, WebviewView, window, env, workspace } from 'vscode'
 import { BUILTIN_MESSAGE_CMD } from '../constants'
 import * as utils from './utils'
 import { IMessage, IWebview } from '../types'
@@ -11,9 +11,15 @@ const { logInfo } = utils
 export type WebviewContainer = WebviewPanel
 
 /**
- * all webview panels, only one panel of the same viewType exists at the same time
+ * Map key is `${viewType}\x1e${instanceKey}` with multiple instances, or `${viewType}\x1e__default__` for a single instance.
  */
 const panels = new Map<string, WebviewContainer>()
+
+const PANEL_KEY_SEP = '\x1e'
+
+function panelMapKey(viewType: string, instanceKey: string): string {
+  return `${viewType}${PANEL_KEY_SEP}${instanceKey}`
+}
 
 let _sidebar: WebviewView | null = null
 export const setSidebarWebview = (sidebarWebview: WebviewView) => {
@@ -68,30 +74,41 @@ export const getWebViewContent = (context: ExtensionContext, templatePath: strin
     utils.logInfo(`webview-replace resourcePath:${resourcePath} dirPath:${dirPath} $1:${$1} $2:${$2}`)
     $2 = $2.startsWith('.') ? $2 : '.' + $2
     const vscodeResourcePath = webview.asWebviewUri(Uri.file(path.resolve(dirPath, $2))).toString()
-    console.log('vscodeResourcePath:', vscodeResourcePath)
     return $1 + vscodeResourcePath + '"'
   })
   return html
 }
 
 /**
- * invoke callback
- * @param {string} viewType
- * @param {*} message
- * @param {*} response
+ * Posts the callback result to the webview that initiated the RPC.
+ * @param viewType Webview panel type.
+ * @param message Original message (contains `callbackId`).
+ * @param response Response payload.
+ * @param targetWebview With multiple panels: pass the webview that initiated the RPC. With a single panel: optional; falls back to `viewType` + `__default__`.
  */
-export const invokeCallback = (viewType: string, message: IMessage, response: any = null) => {
+export const invokeCallback = (
+  viewType: string,
+  message: IMessage,
+  response: any = null,
+  targetWebview?: Webview
+) => {
   if (response && typeof response === 'object' && response.code && response.code >= 400 && response.code < 600) {
     utils.showError(response.message || 'unknown error!')
   }
-  const panel = panels.get(viewType)
-  if (panel) {
-    panel.webview.postMessage({ cmd: 'vscodeCallback', callbackId: message.callbackId, data: response })
-  } else if (_sidebar) {
-    _sidebar.webview.postMessage({ cmd: 'vscodeCallback', callbackId: message.callbackId, data: response })
-  } else {
-    utils.showError(`Could not find a panel has viewType ${viewType}!`)
+  if (targetWebview) {
+    targetWebview.postMessage({ cmd: 'vscodeCallback', callbackId: message.callbackId, data: response })
+    return
   }
+  const fallback = panels.get(panelMapKey(viewType, '__default__'))
+  if (fallback) {
+    fallback.webview.postMessage({ cmd: 'vscodeCallback', callbackId: message.callbackId, data: response })
+    return
+  }
+  if (_sidebar) {
+    _sidebar.webview.postMessage({ cmd: 'vscodeCallback', callbackId: message.callbackId, data: response })
+    return
+  }
+  utils.showError(`Could not find a panel has viewType ${viewType}!`)
 }
 
 export const successResp = { code: 0, text: 'success!' }
@@ -114,7 +131,7 @@ const getEnvForWebview = () => {
 
 export const registryWebview = function (context: ExtensionContext, webview: IWebview) {
   const { webviewProps, messageHandlers } = webview
-  const { command, htmlPath, currentView, panelParams, iconPath } = webviewProps
+  const { command, htmlPath, currentView, panelParams, iconPath, multiPanel } = webviewProps
   const { viewType, title, showOptions, options } = panelParams
   const registerHandle = commands.registerCommand(command, function (...args) {
     const projectPath = utils.getProjectPath()
@@ -123,14 +140,29 @@ export const registryWebview = function (context: ExtensionContext, webview: IWe
       return
     }
     logInfo('viewType: ' + viewType)
-    let panel = panels.get(viewType)
+    const instanceKey = multiPanel?.instanceKeyFromCommandArgs(args, projectPath) ?? '__default__'
+    const storageKey = panelMapKey(viewType, instanceKey)
+    const panelTitle = multiPanel?.resolvePanelTitle(args, projectPath, title) ?? title
+    let panel = panels.get(storageKey)
     logInfo('webviewProps: ' + JSON.stringify(webviewProps))
     if (panel) {
       panel.reveal()
+      panel.title = panelTitle
       panel.webview?.postMessage({ cmd: BUILTIN_MESSAGE_CMD.REVEAL_WEBVIEW, data: { commandArgs: args } })
       return
     }
-    panel = window.createWebviewPanel(viewType, title, showOptions, options)
+    // Custom `localResourceRoots` replace the default roots; include the extension dir, globalStorage (e.g. thumbnail cache), and each workspace folder.
+    const workspaceFolderUris = workspace.workspaceFolders?.map((f) => f.uri) ?? []
+    const mergedResourceRoots = [
+      context.extensionUri,
+      context.globalStorageUri,
+      ...workspaceFolderUris,
+      ...(options?.localResourceRoots ?? [])
+    ]
+    panel = window.createWebviewPanel(viewType, panelTitle, showOptions, {
+      ...options,
+      localResourceRoots: mergedResourceRoots
+    })
     if (!panel) {
       return
     }
@@ -138,15 +170,14 @@ export const registryWebview = function (context: ExtensionContext, webview: IWe
     panel.webview.html = getWebViewContent(context, htmlPath, panel.webview)
     panel.webview.html = panel.webview.html.replace('$currentView$', currentView)
     panel.webview.html = panel.webview.html.replace('$vscodeEnv$', JSON.stringify(getEnvForWebview()))
-    panel.webview.html = panel.webview.html.replace('$commandArgs$', JSON.stringify(args));
-    // console.log('panel.webview.html:', panel.webview.html)
+    panel.webview.html = panel.webview.html.replace('$commandArgs$', JSON.stringify(args))
     const handleReceiveMessage = (msg: IMessage) => panel && handleWebviewMessage(msg, panel.webview)
     panel.webview.onDidReceiveMessage(handleReceiveMessage, undefined, context.subscriptions)
-    panels.set(viewType, panel)
+    panels.set(storageKey, panel)
     // Reset when the current panel is closed
     panel.onDidDispose(
       () => {
-        panels.delete(viewType)
+        panels.delete(storageKey)
         panel?.dispose()
       },
       null,

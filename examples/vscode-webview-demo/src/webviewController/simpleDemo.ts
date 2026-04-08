@@ -24,24 +24,24 @@ const webviewProps: IWebviewProps = {
 const messageHandlers = new Map([
   [
     MESSAGE_CMD.PING,
-    (message: IMessage) => {
+    (message: IMessage, webview: vscode.Webview) => {
       invokeCallback(viewType, message, {
         code: 0,
         text: 'pong',
         from: 'extension',
         timestamp: Date.now()
-      })
+      }, webview)
     }
   ],
   [
     MESSAGE_CMD.GET_EXT_INFO,
-    (message: IMessage) => {
+    (message: IMessage, webview: vscode.Webview) => {
       invokeCallback(viewType, message, {
         code: 0,
         extensionPath: utils.envVars.extensionPath,
         workspacePath: utils.getProjectPath(),
         vscodeVersion: vscode.version
-      })
+      }, webview)
     }
   ]
 ])

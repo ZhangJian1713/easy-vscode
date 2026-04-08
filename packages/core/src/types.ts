@@ -16,6 +16,14 @@ export interface ICreatePanelParams {
   options?: (vscode.WebviewPanelOptions & vscode.WebviewOptions) | undefined
 }
 
+/** Allows multiple side-by-side webviews under the same `viewType` (e.g. one instance per folder from the Explorer context menu). */
+export interface IWebviewMultiPanelOptions {
+  /** Dedupe and reuse panels; running the command again with the same key reveals the existing panel (which receives REVEAL). */
+  instanceKeyFromCommandArgs: (args: unknown[], projectPath: string) => string
+  /** Tab title; `defaultTitle` comes from `panelParams.title`. */
+  resolvePanelTitle: (args: unknown[], projectPath: string, defaultTitle: string) => string
+}
+
 export interface IWebviewProps {
   // command to active this webview panel
   command: string
@@ -27,6 +35,8 @@ export interface IWebviewProps {
   panelParams: ICreatePanelParams
   // panel icon path
   iconPath?: string
+  /** When set: one panel per instance; when unset, behaves like the fixed instance `__default__`. */
+  multiPanel?: IWebviewMultiPanelOptions
 }
 
 export interface IMessage {

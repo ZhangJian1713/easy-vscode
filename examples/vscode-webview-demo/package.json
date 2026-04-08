@@ -1,20 +1,24 @@
 {
   "name": "vscode-webview-demo",
   "displayName": "Webview Demo",
-  "description": "Minimal demo for testing easy-vscode runtime and webview messaging",
   "version": "0.0.1",
-  "publisher": "local-dev",
   "private": true,
-  "engines": {
-    "vscode": "^1.60.0"
-  },
+  "description": "Minimal demo for testing easy-vscode runtime and webview messaging",
   "categories": [
     "Other"
   ],
-  "activationEvents": [
-    "onCommand:webview-demo.open"
-  ],
+  "publisher": "local-dev",
   "main": "./dist/extension.js",
+  "scripts": {
+    "check-type": "tsc --noEmit",
+    "compile": "webpack --config webpack.extension.js",
+    "package": "yarn ui-build && yarn compile",
+    "prepare:easy-vscode": "yarn --cwd ../../packages/core node ../../node_modules/typescript/bin/tsc --build tsconfig.json && rm -rf ./node_modules/@easy_vscode/core/lib && cp -R ../../packages/core/lib ./node_modules/@easy_vscode/core/lib",
+    "ui-build": "webpack --config scaffold/webview.webpack.js --mode production",
+    "ui-dev": "webpack serve --config scaffold/webview.webpack.js --mode development",
+    "vendor:template": "node scripts/vendor-minimal-react-template.cjs",
+    "watch": "webpack --config webpack.extension.js --watch"
+  },
   "contributes": {
     "commands": [
       {
@@ -23,16 +27,9 @@
       }
     ]
   },
-  "scripts": {
-    "prepare:easy-vscode": "yarn --cwd ../../packages/core node ../../node_modules/typescript/bin/tsc --build tsconfig.json && rm -rf ./node_modules/@easy_vscode/core/lib && cp -R ../../packages/core/lib ./node_modules/@easy_vscode/core/lib",
-    "vendor:template": "node scripts/vendor-minimal-react-template.cjs",
-    "compile": "webpack --config webpack.extension.js",
-    "watch": "webpack --config webpack.extension.js --watch",
-    "ui-dev": "webpack serve --config scaffold/webview.webpack.js --mode development",
-    "ui-build": "webpack --config scaffold/webview.webpack.js --mode production",
-    "package": "yarn ui-build && yarn compile",
-    "check-type": "tsc --noEmit"
-  },
+  "activationEvents": [
+    "onCommand:webview-demo.open"
+  ],
   "dependencies": {
     "@easy_vscode/core": "file:../../packages/core",
     "@easy_vscode/webview": "file:../../packages/webview",
@@ -71,5 +68,8 @@
     "webpack": "^5.45.1",
     "webpack-cli": "^4.7.2",
     "webpack-dev-server": "^3.11.2"
+  },
+  "engines": {
+    "vscode": "^1.60.0"
   }
 }
